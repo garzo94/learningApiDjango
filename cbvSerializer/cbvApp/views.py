@@ -11,7 +11,7 @@ from rest_framework import viewsets
 
 # Create your views here.
 
-# viewSet
+# viewSet (even more simple)
 
 
 class StudentViewSet(viewsets.ModelViewSet):
