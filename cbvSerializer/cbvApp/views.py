@@ -7,11 +7,20 @@ from rest_framework.views import APIView
 from django.http import Http404
 
 from rest_framework import generics, mixins
+from rest_framework import viewsets
 
 # Create your views here.
 
-# Generic (more simple)
+# viewSet
 
+
+class StudentViewSet(viewsets.ModelViewSet):
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
+
+
+"""
+# Generic (more simple)
 
 class StudentList(generics.ListCreateAPIView):
     queryset = Student.objects.all()
@@ -23,7 +32,7 @@ class StudentDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = StudentSerializer
 
     # Mixins
-"""
+
 class StudentList(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
