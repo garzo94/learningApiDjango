@@ -9,14 +9,44 @@ from django.http import Http404
 from rest_framework import generics, mixins
 from rest_framework import viewsets
 
+from rest_framework.pagination import PageNumberPagination, LimitOffsetPagination
+
+# FILTER
+from django_filters.rest_framework import DjangoFilterBackend
+
+# SEARCH
+from rest_framework import filters
+
+
 # Create your views here.
 
 # viewSet (even more simple)
 
 
+class StudentPaginations(PageNumberPagination):  # amount of recourds for page if I use LimitOffset dont create this.
+    page_size = 2
+
+
 class StudentViewSet(viewsets.ModelViewSet):
     queryset = Student.objects.all()
-    serializer_class = StudentSerializer
+    serializer_class = StudentSerializer  
+
+    # pagination_class = StudentPaginations
+    pagination_class = LimitOffsetPagination
+
+    # filter_backends = [DjangoFilterBackend] #FILTER
+    # filterset_fields = ['name', 'score']
+
+    filter_backends = [filters.OrderingFilter] # ORDERfilter
+    ordering_fields = []
+
+    # filter_backends = [filters.SearchFilter] #SEARCH
+    # search_fields = ['^name', '^score']
+    # ^ (starts with)
+    # + exact matches
+    # @ full-text (just in PostgresSQL)
+    # $ Regex search
+
 
 
 """
